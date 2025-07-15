@@ -17,6 +17,4 @@ A Java-based social media application built with Quarkus. This project demonstra
 - PostgreSQL
 
 ## Run the project
-
-In the terminal, navigate to the root of the project and run the command `npm install` to install all dependencies. Run the command `npm run dev` to start the project.
-It is recommended to also download the backend [Notation-API](https://github.com/anngelos/notation-api) to run and test a fully FullStack application.
+Don't forget to adjust the application.properties file according to your database connection in order to run the application and then, in the terminal, navigate to the root of the project and run the command `./mvnw quarkus:dev` to run the project.
