@@ -1,69 +1,22 @@
-# quarkus-social
+# Quarkus Social
 
-# pgAdmin 4 (PostgreSQL) password: postgres
+A Java-based social media application built with Quarkus. This project demonstrates a full CRUD system with user management and posts, where each post is linked to a user. The backend uses PostgreSQL as the database.
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+## Features
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+- User creation, editing, and deletion (full CRUD)
+- Post creation, editing, and deletion linked to users
+- PostgreSQL database integration
+- Built with Quarkus framework and Maven
 
-## Running the application in dev mode
+## Stack
 
-You can run your application in dev mode that enables live coding using:
+- Java 17+
+- Quarkus
+- Maven
+- PostgreSQL
 
-```shell script
-./mvnw quarkus:dev
-```
+## Run the project
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
-
-## Packaging and running the application
-
-The application can be packaged using:
-
-```shell script
-./mvnw package
-```
-
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/quarkus-social-1.0-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Related Guides
-
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
-
+In the terminal, navigate to the root of the project and run the command `npm install` to install all dependencies. Run the command `npm run dev` to start the project.
+It is recommended to also download the backend [Notation-API](https://github.com/anngelos/notation-api) to run and test a fully FullStack application.
