@@ -52,7 +52,6 @@ public class FollowerResource {
   }
 
   @GET
-  @Transactional
   public Response listFollowers(@PathParam("userId") Long userId) {
     User user = userRepository.findById(userId);
     if (user == null) {
@@ -64,5 +63,16 @@ public class FollowerResource {
     List<FollowerResponse> followerList = list.stream().map(FollowerResponse::new).collect(Collectors.toList());
     responseObject.setContent(followerList);
     return Response.ok(responseObject).build();
+  }
+
+  @DELETE
+  @Transactional
+  public Response unfollowUser(@PathParam("userId") Long userId, @QueryParam("followerId") Long followerId) {
+    User user = userRepository.findById(userId);
+    if (user == null) {
+      return Response.status(Response.Status.NOT_FOUND).build();
+    }
+    followerRepository.deleteByFollowerAndUser(followerId, userId);
+    return Response.status(Response.Status.NO_CONTENT).build();
   }
 }
