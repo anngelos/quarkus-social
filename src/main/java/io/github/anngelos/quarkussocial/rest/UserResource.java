@@ -18,9 +18,9 @@ import java.util.Set;
 @Path("/users")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class UserResource {
+public class  UserResource {
 
-  private UserRepository repository;
+  private final UserRepository repository;
   private final Validator validator;
 
   @Inject
