@@ -8,6 +8,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.core.Response;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,6 +24,7 @@ class FollowerResourceTest {
   @Inject
   UserRepository userRepository;
   Long userId;
+  Long followerId;
 
   @BeforeEach
   @Transactional
@@ -33,6 +35,13 @@ class FollowerResourceTest {
     user.setAge(81);
     userRepository.persist(user);
     userId = user.getId();
+
+    // follower
+    var follower = new User();
+    follower.setName("Samanta");
+    follower.setAge(29);
+    userRepository.persist(follower);
+    followerId = follower.getId();
   }
 
   @Test
@@ -68,6 +77,22 @@ class FollowerResourceTest {
             .put()
     .then()
             .statusCode(404);
+  }
+
+  @Test
+  @DisplayName("should follow a user")
+  public void followUserTest() {
+    var body = new FollowerRequest();
+    body.setFollowerId(followerId);
+
+    given()
+            .contentType(ContentType.JSON)
+            .body(body)
+            .pathParam("userId", userId)
+    .when()
+            .put()
+    .then()
+            .statusCode(204);
   }
 
 }
