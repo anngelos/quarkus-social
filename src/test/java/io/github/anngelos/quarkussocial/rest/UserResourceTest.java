@@ -30,9 +30,15 @@ class UserResourceTest {
     user.setName("Ramón Valdés");
     user.setAge(63);
 
-    var response = given().contentType(ContentType.JSON).body(user)
-            .when().post(apiUrl)
-            .then().extract().response();
+    var response =
+            given()
+                    .contentType(ContentType.JSON)
+                    .body(user)
+            .when()
+                    .post(apiUrl)
+            .then()
+                    .extract()
+                    .response();
 
     assertEquals(201, response.statusCode());
     assertNotNull(response.jsonPath().getString("id"));
@@ -46,9 +52,15 @@ class UserResourceTest {
     user.setName(null);
     user.setAge(null);
 
-    var response = given().contentType(ContentType.JSON).body(user)
-            .when().post(apiUrl)
-            .then().extract().response();
+    var response =
+            given()
+                    .contentType(ContentType.JSON)
+                    .body(user)
+            .when()
+                    .post(apiUrl)
+            .then()
+                    .extract()
+                    .response();
 
     assertEquals(ResponseError.UNPROCESSABLE_ENTITY_STATUS, response.statusCode());
     assertEquals("Validation Error.", response.jsonPath().getString("message"));
@@ -62,8 +74,12 @@ class UserResourceTest {
   @DisplayName("should list all users")
   @Order(3)
   public void listAllUsersTest() {
-    given().contentType(ContentType.JSON)
-            .when().get(apiUrl)
-            .then().statusCode(200).body("size()", Matchers.is(1));
+    given()
+            .contentType(ContentType.JSON)
+    .when()
+            .get(apiUrl)
+    .then()
+            .statusCode(200)
+            .body("size()", Matchers.is(1));
   }
 }
