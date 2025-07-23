@@ -30,7 +30,7 @@ class UserResourceTest {
     user.setName("Ramón Valdés");
     user.setAge(63);
 
-    var response =
+    var response = 
             given()
                     .contentType(ContentType.JSON)
                     .body(user)
@@ -52,7 +52,7 @@ class UserResourceTest {
     user.setName(null);
     user.setAge(null);
 
-    var response =
+    var response = 
             given()
                     .contentType(ContentType.JSON)
                     .body(user)

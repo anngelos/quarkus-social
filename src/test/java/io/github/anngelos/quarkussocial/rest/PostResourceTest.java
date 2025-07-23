@@ -1,6 +1,10 @@
 package io.github.anngelos.quarkussocial.rest;
 
+import io.github.anngelos.quarkussocial.domain.model.Follower;
+import io.github.anngelos.quarkussocial.domain.model.Post;
 import io.github.anngelos.quarkussocial.domain.model.User;
+import io.github.anngelos.quarkussocial.domain.repository.FollowerRepository;
+import io.github.anngelos.quarkussocial.domain.repository.PostRepository;
 import io.github.anngelos.quarkussocial.domain.repository.UserRepository;
 import io.github.anngelos.quarkussocial.rest.dto.CreatePostRequest;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
@@ -22,8 +26,14 @@ class PostResourceTest {
 
   @Inject
   UserRepository userRepository;
+  @Inject
+  FollowerRepository followerRepository;
+  @Inject
+  PostRepository postRepository;
+
   Long userId;
   Long userNotFollowerId;
+  Long userFollowerId;
 
   @BeforeEach
   @Transactional
@@ -35,12 +45,30 @@ class PostResourceTest {
     userRepository.persist(user);
     userId = user.getId();
 
+    // post has been created to user
+    Post post = new Post();
+    post.setText("Hello!");
+    post.setUser(user);
+    postRepository.persist(post);
+
     // user that isn't a follower
     var userNotFollower = new User();
     userNotFollower.setName("Angelines Fernández");
     userNotFollower.setAge(69);
     userRepository.persist(userNotFollower);
     userNotFollowerId = userNotFollower.getId();
+
+    // user is a follower
+    var userFollower = new User();
+    userFollower.setName("Angelina Cardoso");
+    userFollower.setAge(3);
+    userRepository.persist(userFollower);
+    userFollowerId = userFollower.getId();
+
+    Follower follower = new Follower();
+    follower.setUser(user);
+    follower.setFollower(userFollower);
+    followerRepository.persist(follower);
   }
 
   @Test
@@ -131,5 +159,14 @@ class PostResourceTest {
 
   @Test
   @DisplayName("should return posts")
-  public void listPostTest() {}
+  public void listPostTest() {
+    given()
+            .pathParam("userId", userId)
+            .header("followerId", userFollowerId)
+    .when()
+            .get()
+    .then()
+            .statusCode(200)
+            .body("size()", Matchers.is(1));
+  }
 }
